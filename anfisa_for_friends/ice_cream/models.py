@@ -33,13 +33,23 @@ class Topping(PublishedModel):
         verbose_name = 'топпинг'
         verbose_name_plural = 'Топпинги'
 
+    def __str__(self):
+        return self.title
+
 
 class Wrapper(PublishedModel):
-    pass
+    title = models.CharField(
+        'Название',
+        max_length=256,
+        help_text='Уникальное название обёртки, не более 256 символов'
+    )
 
     class Meta:
         verbose_name = 'обёртка'
         verbose_name_plural = 'Обёртки'
+
+    def __str__(self):
+        return self.title
 
 
 class IceCream(PublishedModel):
@@ -66,3 +76,6 @@ class IceCream(PublishedModel):
     class Meta:
         verbose_name = 'мороженое'
         verbose_name_plural = 'Мороженое'
+
+    def __str__(self):
+        return self.title
