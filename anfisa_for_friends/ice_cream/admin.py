@@ -6,6 +6,8 @@ from .models import Category, IceCream
 # ...и регистрируем её в админке:
 admin.site.register(Category)
 
+admin.site.empty_value_display = 'Не задано'
+
 
 class IceCreamAdmin(admin.ModelAdmin):
     list_display = (
@@ -24,6 +26,8 @@ class IceCreamAdmin(admin.ModelAdmin):
     search_fields = ('title',)
     list_filter = ('category',)
     list_display_links = ('title',)
+
+    empty_value_display = 'Не задано'
 
 
 admin.site.register(IceCream, IceCreamAdmin)
