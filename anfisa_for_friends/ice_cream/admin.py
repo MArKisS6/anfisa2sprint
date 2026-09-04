@@ -1,12 +1,19 @@
 from django.contrib import admin
 
-# Register your models here.
-from .models import Category, IceCream
-
-# ...и регистрируем её в админке:
-admin.site.register(Category)
+from .models import Category, IceCream, Topping, Wrapper
 
 admin.site.empty_value_display = 'Не задано'
+
+
+class IceCreamInline(admin.StackedInline):
+    model = IceCream
+    extra = 0
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    inlines = (
+        IceCreamInline,
+    )
 
 
 class IceCreamAdmin(admin.ModelAdmin):
@@ -24,10 +31,12 @@ class IceCreamAdmin(admin.ModelAdmin):
         'category'
     )
     search_fields = ('title',)
-    list_filter = ('category',)
+    list_filter = ('is_published',)
     list_display_links = ('title',)
-
-    empty_value_display = 'Не задано'
+    filter_horizontal = ('toppings',)
 
 
 admin.site.register(IceCream, IceCreamAdmin)
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Topping)
+admin.site.register(Wrapper)
